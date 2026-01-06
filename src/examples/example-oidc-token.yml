@@ -1,0 +1,34 @@
+description: >
+  Configure credentials and run tests using CircleCI OIDC authentication
+usage:
+  version: 2.1
+  orbs:
+    emulator-wtf: emulator-wtf/emulator-wtf@0.0.1
+
+  jobs:
+    test_hard_coded_id:
+      docker:
+        - image: cimg/openjdk:24.0
+      steps:
+        - checkout
+        - emulator-wtf/configure_credentials:
+            oidc_configuration_id: asdf-1234-asdf-asdf
+        - emulator-wtf/run_tests:
+            app: sample-app.apk
+            test: sample-test.apk
+    test_env_var_id:
+      docker:
+        - image: cimg/openjdk:24.0
+      steps:
+        - checkout
+        - emulator-wtf/configure_credentials:
+            oidc_configuration_id: ${OIDC_CONFIGURATION_ID}
+        - emulator-wtf/run_tests:
+            app: sample-app.apk
+            test: sample-test.apk
+
+  workflows:
+    test-workflow:
+      jobs:
+        - test_hard_coded_id
+        - test_env_var_id

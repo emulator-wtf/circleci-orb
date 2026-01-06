@@ -1,0 +1,21 @@
+description: >
+  Run tests using emulator-wtf orb. Assumes a EW_API_TOKEN environment variable is set.
+usage:
+  version: 2.1
+  orbs:
+    emulator-wtf: emulator-wtf/emulator-wtf@0.0.1
+
+  jobs:
+    test-sample-app:
+      docker:
+        - image: cimg/openjdk:24.0
+      steps:
+        - checkout
+        - emulator-wtf/run_tests:
+            app: sample-app.apk
+            test: sample-test.apk
+
+  workflows:
+    test-workflow:
+      jobs:
+        - test-sample-app
