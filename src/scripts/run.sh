@@ -1,3 +1,4 @@
+#!/bin/bash
 EW_BIN="$HOME/.cache/emulator-wtf/ew-cli"
 
 args=("$EW_BIN")

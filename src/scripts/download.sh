@@ -1,3 +1,4 @@
+#!/bin/bash
 EW_BIN="$HOME/.cache/emulator-wtf/ew-cli"
 
 # download ew-cli wrapper if not fetched already
