@@ -5,7 +5,7 @@ set -euo pipefail
 if [ -n "${OIDC_CONFIGURATION_ID_PARAM:-}" ]; then
   CONF_ID=$(circleci env subst "${OIDC_CONFIGURATION_ID_PARAM}")
 else
-  CONF_ID=$(circleci env subst "${!OIDC_CONFIGURATION_ID_VARIABLE}")
+  CONF_ID=$(circleci env subst "${!OIDC_CONFIGURATION_ID_VARIABLE:-}")
 fi
 
 if [ -z "${CONF_ID:-}" ]; then
