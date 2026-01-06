@@ -1,0 +1,11 @@
+version: 2.1
+
+description: >
+  Emulator.wtf is an Android cloud emulator laser-focused on performance to deliver quick feedback to your PRs.
+
+  With this orb you can easily run your Android instrumentation tests with emulator.wtf.
+
+display:
+  home_url: "https://docs.emulator.wtf"
+  source_url: "https://www.github.com/emulator-wtf/circleci-orb"
+
