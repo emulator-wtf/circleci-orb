@@ -1,7 +1,7 @@
 description: >
   Run Android instrumentation tests using emulator.wtf.
 parameters:
-  cache-version:
+  cache_version:
     type: string
     default: "1"
     description: "cache version, change this in case of cache corruption"
@@ -15,7 +15,7 @@ parameters:
   test:
     type: string
     description: "Path to test apk file"
-  outputs-dir:
+  outputs_dir:
     type: string
     description: "Location to store test outputs in"
     default: ""
@@ -23,39 +23,39 @@ parameters:
     type: string
     description: "Device configurations to use, in the form of model=X,version=Y per line"
     default: ""
-  use-orchestrator:
+  use_orchestrator:
     type: boolean
     description: "Whether to use the Android Test Orchestrator"
     default: false
-  clear-package-data:
+  clear_package_data:
     type: boolean
     description: "Whether to clear app data between every test (requires use-orchestrator)"
     default: false
-  with-coverage:
+  with_coverage:
     type: boolean
     description: "Set to true to collect coverage files and save them to outputs-dir"
     default: false
-  additional-apks:
+  additional_apks:
     type: string
     description: "Additional apks to install, one per line"
     default: ""
-  environment-variables:
+  environment_variables:
     type: string
     description: "Environment variables to pass to AndroidJUnitRunner, comma-separated list of key-value pairs: key=value,key2=value2"
     default: ""
-  num-uniform-shards:
+  num_uniform_shards:
     type: integer
     description: "Set to a number larger than 1 to randomly split your tests into multiple shards to be executed in parallel"
     default: 0
-  num-shards:
+  num_shards:
     type: integer
     description: "Set to a number larger than 1 to randomly split your tests into multiple shards to be executed in parallel"
     default: 0
-  directories-to-pull:
+  directories_to_pull:
     type: string
     description: "Directories to pull from device and store in outputs-dir, one per line"
     default: ""
-  test-cache:
+  test_cache:
     type: boolean
     default: true
     description: "Whether to cache the test results"
@@ -63,8 +63,8 @@ steps:
   # restore the wrapping script and jar cache
   - restore_cache:
       keys:
-          - ew-cli-<<parameters.cache-version>>-<<parameters.version>>
-          - ew-cli-<<parameters.cache-version>>
+        - ew-cli-<<parameters.cache_version>>-<<parameters.version>>
+        - ew-cli-<<parameters.cache_version>>
   # make sure ew-cli and the jar exists
   - run:
       environment:
@@ -73,7 +73,7 @@ steps:
       command: <<include(scripts/download.sh)>>
   # store the wrapping script and jar cache
   - save_cache:
-      key: ew-cli-<<parameters.cache-version>>-<<parameters.version>>
+      key: ew-cli-<<parameters.cache_version>>-<<parameters.version>>
       paths: ~/.cache/emulator-wtf
   # invoke ew-cli
   - run:
@@ -81,16 +81,16 @@ steps:
         EW_VERSION: <<parameters.version>>
         APP_APK: <<parameters.app>>
         TEST_APK: <<parameters.test>>
-        OUTPUTS_DIR: <<parameters.outputs-dir>>
+        OUTPUTS_DIR: <<parameters.outputs_dir>>
         DEVICES: <<parameters.devices>>
-        USE_ORCHESTRATOR: <<parameters.use-orchestrator>>
-        CLEAR_PACKAGE_DATA: <<parameters.clear-package-data>>
-        WITH_COVERAGE: <<parameters.with-coverage>>
-        ADDITIONAL_APKS: <<parameters.additional-apks>>
-        ENVIRONMENT_VARIABLES: <<parameters.environment-variables>>
-        NUM_UNIFORM_SHARDS: <<parameters.num-uniform-shards>>
-        NUM_SHARDS: <<parameters.num-shards>>
-        DIRECTORIES_TO_PULL: <<parameters.directories-to-pull>>
-        TEST_CACHE: <<parameters.test-cache>>
+        USE_ORCHESTRATOR: <<parameters.use_orchestrator>>
+        CLEAR_PACKAGE_DATA: <<parameters.clear_package_data>>
+        WITH_COVERAGE: <<parameters.with_coverage>>
+        ADDITIONAL_APKS: <<parameters.additional_apks>>
+        ENVIRONMENT_VARIABLES: <<parameters.environment_variables>>
+        NUM_UNIFORM_SHARDS: <<parameters.num_uniform_shards>>
+        NUM_SHARDS: <<parameters.num_shards>>
+        DIRECTORIES_TO_PULL: <<parameters.directories_to_pull>>
+        TEST_CACHE: <<parameters.test_cache>>
       name: Run tests with emulator.wtf
       command: <<include(scripts/run.sh)>>
