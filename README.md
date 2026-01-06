@@ -1,7 +1,7 @@
 # Orb Template
 
 
-[![CircleCI Build Status](https://circleci.com/gh/emulator-wtf/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/emulator-wtf/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/emulator-wtf/circleci-orb.svg)](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/emulator-wtf/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[![CircleCI Build Status](https://circleci.com/gh/emulator-wtf/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/emulator-wtf/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/emulator-wtf/emulator-wtf.svg)](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/emulator-wtf/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
 
