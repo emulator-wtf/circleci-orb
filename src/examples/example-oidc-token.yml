@@ -11,9 +11,9 @@ usage:
         - image: cimg/openjdk:24.0
       steps:
         - checkout
-        - emulator-wtf/configure-credentials:
+        - emulator-wtf/configure_credentials:
             oidc_configuration_id: asdf-1234-asdf-asdf
-        - emulator-wtf/run-tests:
+        - emulator-wtf/run_tests:
             app: sample-app.apk
             test: sample-test.apk
     test_env_var_id:
@@ -21,9 +21,9 @@ usage:
         - image: cimg/openjdk:24.0
       steps:
         - checkout
-        - emulator-wtf/configure-credentials:
+        - emulator-wtf/configure_credentials:
             oidc_configuration_id_variable: OIDC_CONFIGURATION_ID
-        - emulator-wtf/run-tests:
+        - emulator-wtf/run_tests:
             app: sample-app.apk
             test: sample-test.apk
 

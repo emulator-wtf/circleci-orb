@@ -11,7 +11,7 @@ usage:
         - image: cimg/openjdk:24.0
       steps:
         - checkout
-        - emulator-wtf/run-tests:
+        - emulator-wtf/run_tests:
             app: sample-app.apk
             test: sample-test.apk
 
