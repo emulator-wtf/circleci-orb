@@ -22,7 +22,7 @@ usage:
       steps:
         - checkout
         - emulator-wtf/configure_credentials:
-            oidc_configuration_id_variable: OIDC_CONFIGURATION_ID
+            oidc_configuration_id: ${OIDC_CONFIGURATION_ID}
         - emulator-wtf/run_tests:
             app: sample-app.apk
             test: sample-test.apk

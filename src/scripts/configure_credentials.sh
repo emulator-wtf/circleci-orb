@@ -4,12 +4,10 @@ set -euo pipefail
 
 if [ -n "${OIDC_CONFIGURATION_ID_PARAM:-}" ]; then
   CONF_ID=$(circleci env subst "${OIDC_CONFIGURATION_ID_PARAM}")
-else
-  CONF_ID=$(circleci env subst "${!OIDC_CONFIGURATION_ID_VARIABLE:-}")
 fi
 
 if [ -z "${CONF_ID:-}" ]; then
-  echo "Error: OIDC configuration ID is not set. Please provide either oidc_configuration_id parameter or set the environment variable specified in oidc_configuration_id_variable (default env variable name: OIDC_CONFIGURATION_ID)."
+  echo "Error: OIDC configuration ID is not set. Please configure ${OIDC_CONFIGURATION_ID_PARAM} environment variable."
   exit 1
 fi
 
