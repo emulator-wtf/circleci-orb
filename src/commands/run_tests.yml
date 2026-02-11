@@ -51,6 +51,10 @@ parameters:
     type: integer
     description: "Set to a number larger than 1 to randomly split your tests into multiple shards to be executed in parallel"
     default: 0
+  num_balanced_shards:
+    description: 'Set to a number larger than 1 to split your tests into even shards based on historical runtime.'
+    default: 0
+    required: false
   shard_target_runtime:
     type: string
     description: 'Target runtime for each shard in minutes, tests will be split into shards targeting this runtime for each shard based on historical data on a best effort basis.'
@@ -96,6 +100,7 @@ steps:
         WITH_COVERAGE: <<parameters.with_coverage>>
         ADDITIONAL_APKS: <<parameters.additional_apks>>
         ENVIRONMENT_VARIABLES: <<parameters.environment_variables>>
+        NUM_BALANCED_SHARDS: <<parameters.num_balanced_shards>>
         SHARD_TARGET_RUNTIME: <<parameters.shard_target_runtime>>
         TESTCASE_DURATION_HINT: <<parameters.testcase_duration_hint>>
         NUM_UNIFORM_SHARDS: <<parameters.num_uniform_shards>>
