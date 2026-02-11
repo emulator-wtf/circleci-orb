@@ -52,11 +52,15 @@ if [[ -n "$NUM_UNIFORM_SHARDS" ]]; then
 fi
 
 if [[ -n "$SHARD_TARGET_RUNTIME" ]]; then
-    args+=("--shard-target-runtime" "$SHARD_TARGET_RUNTIME")
+    if [[ "$SHARD_TARGET_RUNTIME" != "0s" ]]; then
+      args+=("--shard-target-runtime" "$SHARD_TARGET_RUNTIME")
+    fi
 fi
 
 if [[ -n "$TESTCASE_DURATION_HINT" ]]; then
-    args+=("--testcase-duration-hint" "$TESTCASE_DURATION_HINT")
+    if [[ "$TESTCASE_DURATION_HINT" != "0s" ]]; then
+      args+=("--testcase-duration-hint" "$TESTCASE_DURATION_HINT")
+    fi
 fi
 
 if [[ -n "$NUM_BALANCED_SHARDS" ]]; then

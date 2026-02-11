@@ -54,15 +54,14 @@ parameters:
   num_balanced_shards:
     description: 'Set to a number larger than 1 to split your tests into even shards based on historical runtime.'
     default: 0
-    required: false
   shard_target_runtime:
     type: string
     description: 'Target runtime for each shard in minutes, tests will be split into shards targeting this runtime for each shard based on historical data on a best effort basis.'
-    required: false
+    default: "0s"
   testcase_duration_hint:
     type: string
     description: 'Hint for the average runtime for each test case expressed by a number followed by a unit (h, m, s or ms), with the maximum value being 3h and the minimum value being 1ms (default 10s). Useful when historical runtime data is missing for tests alongside with --shard-target-runtime'
-    required: false
+    default: "0s"
   directories_to_pull:
     type: string
     description: "Directories to pull from device and store in outputs-dir, one per line"
