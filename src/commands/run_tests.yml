@@ -52,6 +52,7 @@ parameters:
     description: "Set to a number larger than 1 to randomly split your tests into multiple shards to be executed in parallel"
     default: 0
   num_balanced_shards:
+    type: integer
     description: 'Set to a number larger than 1 to split your tests into even shards based on historical runtime.'
     default: 0
   shard_target_runtime:
