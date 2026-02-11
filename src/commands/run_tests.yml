@@ -7,7 +7,7 @@ parameters:
     description: "cache version, change this in case of cache corruption"
   version:
     type: string
-    default: "1.0.4"
+    default: "1.1.0"
     description: "ew-cli version to use"
   app:
     type: string
@@ -51,6 +51,18 @@ parameters:
     type: integer
     description: "Set to a number larger than 1 to randomly split your tests into multiple shards to be executed in parallel"
     default: 0
+  num_balanced_shards:
+    type: integer
+    description: 'Set to a number larger than 1 to split your tests into even shards based on historical runtime.'
+    default: 0
+  shard_target_runtime:
+    type: string
+    description: 'Target runtime for each shard in minutes, tests will be split into shards targeting this runtime for each shard based on historical data on a best effort basis.'
+    default: "0s"
+  testcase_duration_hint:
+    type: string
+    description: 'Hint for the average runtime for each test case expressed by a number followed by a unit (h, m, s or ms), with the maximum value being 3h and the minimum value being 1ms (default 10s). Useful when historical runtime data is missing for tests alongside with --shard-target-runtime'
+    default: "0s"
   directories_to_pull:
     type: string
     description: "Directories to pull from device and store in outputs-dir, one per line"
@@ -88,6 +100,9 @@ steps:
         WITH_COVERAGE: <<parameters.with_coverage>>
         ADDITIONAL_APKS: <<parameters.additional_apks>>
         ENVIRONMENT_VARIABLES: <<parameters.environment_variables>>
+        NUM_BALANCED_SHARDS: <<parameters.num_balanced_shards>>
+        SHARD_TARGET_RUNTIME: <<parameters.shard_target_runtime>>
+        TESTCASE_DURATION_HINT: <<parameters.testcase_duration_hint>>
         NUM_UNIFORM_SHARDS: <<parameters.num_uniform_shards>>
         NUM_SHARDS: <<parameters.num_shards>>
         DIRECTORIES_TO_PULL: <<parameters.directories_to_pull>>
