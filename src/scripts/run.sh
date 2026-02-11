@@ -51,6 +51,14 @@ if [[ -n "$NUM_UNIFORM_SHARDS" ]]; then
     fi
 fi
 
+if [[ -n "$SHARD_TARGET_RUNTIME" ]]; then
+    args+=("--shard-target-runtime" "$SHARD_TARGET_RUNTIME")
+fi
+
+if [[ -n "$TESTCASE_DURATION_HINT" ]]; then
+    args+=("--testcase-duration-hint" "$TESTCASE_DURATION_HINT")
+fi
+
 if [[ -n "$NUM_SHARDS" ]]; then
     if [[ "$NUM_SHARDS" != "0" ]]; then
         args+=("--num-shards" "$NUM_SHARDS")
