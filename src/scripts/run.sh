@@ -63,6 +63,10 @@ if [[ -n "$TESTCASE_DURATION_HINT" ]]; then
     fi
 fi
 
+if [[ -n "$SHARD_UNIT" ]]; then
+    args+=("--shard-unit" "$SHARD_UNIT")
+fi
+
 if [[ -n "$NUM_BALANCED_SHARDS" ]]; then
     if [[ "$NUM_BALANCED_SHARDS" != "0" ]]; then
         args+=("--num-balanced-shards" "$NUM_BALANCED_SHARDS")
