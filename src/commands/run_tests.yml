@@ -7,7 +7,7 @@ parameters:
     description: "cache version, change this in case of cache corruption"
   version:
     type: string
-    default: "1.1.0"
+    default: "1.2.0"
     description: "ew-cli version to use"
   app:
     type: string
