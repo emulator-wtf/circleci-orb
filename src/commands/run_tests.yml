@@ -71,6 +71,14 @@ parameters:
     type: string
     description: "Directories to pull from device and store in outputs-dir, one per line"
     default: ""
+  timeout:
+    type: string
+    default: ""
+    description: "Timeout for the test run, expressed as a number followed by a unit (h, m, s or ms). If not set, ew-cli will use its default timeout."
+  no_output_timeout:
+    type: string
+    default: ""
+    description: "Elapsed time the run step may go without output. Accepts duration strings such as '20m', '1h', '500s'. If not set, uses the timeout parameter value when set, otherwise defaults to '15m'."
   test_cache:
     type: boolean
     default: true
@@ -112,5 +120,7 @@ steps:
         NUM_SHARDS: <<parameters.num_shards>>
         DIRECTORIES_TO_PULL: <<parameters.directories_to_pull>>
         TEST_CACHE: <<parameters.test_cache>>
+        TIMEOUT: <<parameters.timeout>>
       name: Run tests with emulator.wtf
+      no_output_timeout: <<# parameters.no_output_timeout>><<parameters.no_output_timeout>><</parameters.no_output_timeout>><<^ parameters.no_output_timeout>><<# parameters.timeout>><<parameters.timeout>><</parameters.timeout>><<^ parameters.timeout>>15m<</parameters.timeout>><</parameters.no_output_timeout>>
       command: <<include(scripts/run.sh)>>
