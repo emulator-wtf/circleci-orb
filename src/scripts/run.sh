@@ -90,6 +90,10 @@ if [[ "$TEST_CACHE" == "0" ]]; then
     args+=("--no-test-cache")
 fi
 
+if [[ -n "$TIMEOUT" ]]; then
+    args+=("--timeout" "$TIMEOUT")
+fi
+
 echo "${args[@]}"
 
 # execute
