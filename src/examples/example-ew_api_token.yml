@@ -3,12 +3,12 @@ description: >
 usage:
   version: 2.1
   orbs:
-    emulator-wtf: emulator-wtf/emulator-wtf@0.0.1
+    emulator-wtf: emulator-wtf/emulator-wtf@0.1.1
 
   jobs:
     test-sample-app:
       docker:
-        - image: cimg/openjdk:24.0
+        - image: cimg/openjdk:25.0
       steps:
         - checkout
         - emulator-wtf/run_tests:
