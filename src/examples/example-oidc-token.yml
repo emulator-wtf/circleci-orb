@@ -3,12 +3,12 @@ description: >
 usage:
   version: 2.1
   orbs:
-    emulator-wtf: emulator-wtf/emulator-wtf@0.0.1
+    emulator-wtf: emulator-wtf/emulator-wtf@0.1.1
 
   jobs:
     test_hard_coded_id:
       docker:
-        - image: cimg/openjdk:24.0
+        - image: cimg/openjdk:25.0
       steps:
         - checkout
         - emulator-wtf/configure_credentials:
@@ -18,7 +18,7 @@ usage:
             test: sample-test.apk
     test_env_var_id:
       docker:
-        - image: cimg/openjdk:24.0
+        - image: cimg/openjdk:25.0
       steps:
         - checkout
         - emulator-wtf/configure_credentials:
