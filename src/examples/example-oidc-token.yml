@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    emulator-wtf: emulator-wtf/emulator-wtf@0.1.1
+    emulator-wtf: emulator-wtf/emulator-wtf@0.2.0
 
   jobs:
     test_hard_coded_id:
