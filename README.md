@@ -1,62 +1,110 @@
-# Orb Template
+# emulator.wtf CircleCI Orb
 
+[![CircleCI Build Status](https://circleci.com/gh/emulator-wtf/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/emulator-wtf/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/emulator-wtf/emulator-wtf.svg)](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/emulator-wtf/circleci-orb/main/LICENSE)
 
-[![CircleCI Build Status](https://circleci.com/gh/emulator-wtf/circleci-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/emulator-wtf/circleci-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/emulator-wtf/emulator-wtf.svg)](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/emulator-wtf/circleci-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+[Emulator.wtf](https://emulator.wtf) is an Android cloud emulator laser-focused
+on performance to deliver quick feedback to your PRs.
 
+Use this orb to run your Android instrumentation tests with emulator.wtf on
+CircleCI. See the
+[Orb Registry page](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf)
+for the latest version.
 
+## `emulator-wtf/run_tests`
 
-A project template for Orbs.
+Run your instrumentation tests with emulator.wtf, optionally with multiple
+shards.
 
-This repository is designed to be automatically ingested and modified by the CircleCI CLI's `orb init` command.
+### Quick usage
 
-_**Edit this area to include a custom title and description.**_
-
----
-
-## Resources
-
-[CircleCI Orb Registry Page](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf) - The official registry page of this orb for all versions, executors, commands, and jobs described.
-
-[CircleCI Orb Docs](https://circleci.com/docs/orb-intro/#section=configuration) - Docs for using, creating, and publishing CircleCI Orbs.
-
-### How to Contribute
-
-We welcome [issues](https://github.com/emulator-wtf/circleci-orb/issues) to and [pull requests](https://github.com/emulator-wtf/circleci-orb/pulls) against this repository!
-
-### How to Publish An Update
-1. Merge pull requests with desired changes to the main branch.
-    - For the best experience, squash-and-merge and use [Conventional Commit Messages](https://conventionalcommits.org/).
-2. Find the current version of the orb.
-    - You can run `circleci orb info emulator-wtf/emulator-wtf | grep "Latest"` to see the current version.
-3. Create a [new Release](https://github.com/emulator-wtf/circleci-orb/releases/new) on GitHub.
-    - Click "Choose a tag" and _create_ a new [semantically versioned](http://semver.org/) tag. (ex: v1.0.0)
-        - We will have an opportunity to change this before we publish if needed after the next step.
-4.  Click _"+ Auto-generate release notes"_.
-    - This will create a summary of all of the merged pull requests since the previous release.
-    - If you have used _[Conventional Commit Messages](https://conventionalcommits.org/)_ it will be easy to determine what types of changes were made, allowing you to ensure the correct version tag is being published.
-5. Now ensure the version tag selected is semantically accurate based on the changes included.
-6. Click _"Publish Release"_.
-    - This will push a new tag and trigger your publishing pipeline on CircleCI.
-
-### Development Orbs
-
-Prerequisites:
-
-- An initial sevmer deployment must be performed in order for Development orbs to be published and seen in the [Orb Registry](https://circleci.com/developer/orbs).
-
-A [Development orb](https://circleci.com/docs/orb-concepts/#development-orbs) can be created to help with rapid development or testing. To create a Development orb, change the `orb-tools/publish` job in `test-deploy.yml` to be the following:
+A basic example that builds the app and test APKs, runs the tests and stores
+the results in CircleCI. Set the `EW_API_TOKEN` environment variable in your
+project settings or use the `emulator-wtf/configure_credentials` command to avoid storing an API token in CircleCI.
 
 ```yaml
-- orb-tools/publish:
-    orb_name: emulator-wtf/emulator-wtf
-    vcs_type: << pipeline.project.type >>
-    pub_type: dev
-    # Ensure this job requires all test jobs and the pack job.
-    requires:
-      - orb-tools/pack
-      - command-test
-    context: orb-publishing
-    filters: *filters
+version: 2.1
+
+orbs:
+  emulator-wtf: emulator-wtf/emulator-wtf@0.30.0
+
+jobs:
+  run-tests:
+    docker:
+      - image: cimg/android:2024.01.1
+    steps:
+      - checkout
+      - run:
+          name: Build app
+          command: ./gradlew assembleDebug assembleAndroidTest
+      - emulator-wtf/run_tests:
+          app: app/build/outputs/apk/debug/app-debug.apk
+          test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
+          outputs_dir: build/test-results
+      - store_test_results:
+          path: build/test-results
+
+workflows:
+  test:
+    jobs:
+      - run-tests
 ```
 
-The job output will contain a link to the Development orb Registry page. The parameters `enable_pr_comment` and `github_token` can be set to add the relevant publishing information onto a pull request. Please refer to the [orb-tools/publish](https://circleci.com/developer/orbs/orb/circleci/orb-tools#jobs-publish) documentation for more information and options.
+### Parameters
+
+See the full list of parameters on the
+[Orb Registry page](https://circleci.com/developer/orbs/orb/emulator-wtf/emulator-wtf#commands-run_tests).
+
+### Common examples
+
+#### Run tests with multiple device profiles
+
+By default emulator.wtf runs tests on a Pixel7-like emulator with API 30. Use the `devices` parameter to run on other versions:
+
+```yaml
+      - emulator-wtf/run_tests:
+          app: app/build/outputs/apk/debug/app-debug.apk
+          test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
+          devices: |
+            model=NexusLowRes,version=29
+            model=Pixel2,version=37
+```
+
+#### Run tests with shards
+
+Use sharding for faster test execution.
+
+```yaml
+      - emulator-wtf/run_tests:
+          app: app/build/outputs/apk/debug/app-debug.apk
+          test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
+          num_shards: 3
+          outputs_dir: build/test-results
+```
+
+## `emulator-wtf/configure_credentials`
+
+Use configure_credentials to authenticate the test runs using temporary tokens instead of long living API token.
+It uses [CircleCI OIDC tokens](https://circleci.com/docs/openid-connect-tokens/) to
+authenticate with emulator.wtf and get temporary credentials.
+
+### Quick usage
+
+1. Create a new OIDC configuration in the
+   [emulator.wtf](https://emulator.wtf).
+2. Run `emulator-wtf/configure_credentials` with the OIDC configuration ID
+   from step 1. Use a literal value or an environment variable.
+
+   ```yaml
+   - emulator-wtf/configure_credentials:
+       oidc_configuration_id: ${OIDC_CONFIGURATION_ID}
+   ```
+
+3. Run `emulator-wtf/run_tests` later in the same job. No API token is needed.
+
+Read more about [OIDC in emulator.wtf](https://docs.emulator.wtf/oidc).
+
+## Contributing
+
+We welcome [issues](https://github.com/emulator-wtf/circleci-orb/issues) and
+[pull requests](https://github.com/emulator-wtf/circleci-orb/pulls).
+
