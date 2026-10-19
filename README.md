@@ -77,22 +77,19 @@ Use sharding for faster test execution.
       - emulator-wtf/run_tests:
           app: app/build/outputs/apk/debug/app-debug.apk
           test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
-          num_shards: 3
+          shard-target-runtime: 3m
           outputs_dir: build/test-results
 ```
 
 ## `emulator-wtf/configure_credentials`
 
-Use configure_credentials to authenticate the test runs using temporary tokens instead of long living API token.
-It uses [CircleCI OIDC tokens](https://circleci.com/docs/openid-connect-tokens/) to
-authenticate with emulator.wtf and get temporary credentials.
+Use `configure_credentials` to authenticate test runs using temporary [OIDC tokens](https://circleci.com/docs/openid-connect-tokens/) instead of a long living API token.
 
 ### Quick usage
 
-1. Create a new OIDC configuration in the
-   [emulator.wtf](https://emulator.wtf).
+1. Create a new configuration in the [emulator.wtf](https://emulator.wtf) OIDC configurations page and copy the OIDC configuration ID to the CircleCI project environment variables. E.g you can use variable name `OIDC_CONFIGURATION_ID`.
 2. Run `emulator-wtf/configure_credentials` with the OIDC configuration ID
-   from step 1. Use a literal value or an environment variable.
+   from step 1.
 
    ```yaml
    - emulator-wtf/configure_credentials:
