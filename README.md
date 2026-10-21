@@ -25,7 +25,7 @@ project settings or use the `emulator-wtf/configure_credentials` command to avoi
 version: 2.1
 
 orbs:
-  emulator-wtf: emulator-wtf/emulator-wtf@0.3.0
+  emulator-wtf: emulator-wtf/emulator-wtf@0.3.1
 
 jobs:
   run-tests:
