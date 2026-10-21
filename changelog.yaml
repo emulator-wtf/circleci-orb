@@ -14,4 +14,4 @@ unreleased:
 
   Note that typically the values for these will be guessed automatically by the orb, but in some cases
   you may want to override them.
-- "Maintenance: bumped default `ew-cli` version to 1.5.1."
+- "Maintenance: bumped default `ew-cli` version to 1.5.2."
