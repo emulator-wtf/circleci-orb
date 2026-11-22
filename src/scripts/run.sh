@@ -1,5 +1,7 @@
 #!/bin/bash
 EW_BIN="$HOME/.cache/emulator-wtf/ew-cli"
+# orb version, bumped on every release
+ORB_VERSION="0.3.4"
 
 args=("$EW_BIN")
 
@@ -93,6 +95,8 @@ fi
 if [[ -n "$TIMEOUT" ]]; then
     args+=("--timeout" "$TIMEOUT")
 fi
+
+args+=("--ew-integration" "circleci-orb $ORB_VERSION")
 
 echo "${args[@]}"
 
